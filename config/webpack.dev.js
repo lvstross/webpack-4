@@ -1,27 +1,23 @@
 const path = require("path");
 
 module.exports = {
-  entry: { // Entry point of the application.
-    // This can also be an array to load in multiple entry points.
-    // they will be loaded in the index order in which they are
-    // placed.
-    // main: ["./src/main.js", "./src/other.js"],
+  entry: {
     main: "./src/main.js",
   },
-  mode: "development", // mode of this configuration
-  output: { // the bundled output information
+  mode: "development",
+  output: {
     filename: "[name]-bundle.js",
     path: path.resolve(__dirname, "../dist"),
     publicPath: "/",
   },
-  devServer: { // the directory of which to serve
+  devServer: {
     contentBase: "dist",
+    overlay: true,
   },
   module: {
     rules: [
       {
-        test: /\.css$/, // when .css files are encountered, use loaders
-        // use array is run in reverse index order css-loader -> style-loader
+        test: /\.css$/,
         use: [
           {
             loader: "style-loader",
@@ -29,6 +25,37 @@ module.exports = {
           {
             loader: "css-loader",
           },
+        ],
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].html",
+            },
+          },
+          {
+            loader: "extract-loader",
+          },
+          {
+            loader: "html-loader",
+            options: {
+              attrs: ["img:src"]
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(jpg|gif|png)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "images/[name].[ext]"
+            }
+          }
         ],
       },
     ],

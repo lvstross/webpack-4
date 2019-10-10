@@ -1,3 +1,3 @@
 require("./main.css");
-
-console.log('main.js');
+require('./images/lion.jpg');
+require('./index.html');
