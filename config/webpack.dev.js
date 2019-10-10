@@ -2,7 +2,11 @@ const path = require("path");
 
 module.exports = {
   entry: {
-    main: "./src/main.js",
+    main: [
+      // "core-js/fn/promise",
+      // "babel-polyfill"
+      "./src/main.js",
+    ],
   },
   mode: "development",
   output: {
@@ -17,16 +21,29 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.js$/,
+        exclude: /node_modules/,
         use: [
           {
-            loader: "style-loader",
-          },
-          {
-            loader: "css-loader",
+            loader: "babel-loader",
           },
         ],
       },
+      {
+        test: /\.css$/,
+        use: [{ loader: "style-loader" }, { loader: "css-loader" }],
+      },
+            {
+              test: /\.(jpg|gif|png)$/,
+              use: [
+                {
+                  loader: "file-loader",
+                  options: {
+                    name: "images/[name].[ext]"
+                  }
+                }
+              ],
+            },
       {
         test: /\.html$/,
         use: [
@@ -38,24 +55,13 @@ module.exports = {
           },
           {
             loader: "extract-loader",
+            options: {
+              publicPath: "../",
+            },
           },
           {
             loader: "html-loader",
-            options: {
-              attrs: ["img:src"]
-            },
           },
-        ],
-      },
-      {
-        test: /\.(jpg|gif|png)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "images/[name].[ext]"
-            }
-          }
         ],
       },
     ],
