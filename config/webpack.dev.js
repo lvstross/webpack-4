@@ -4,11 +4,7 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    main: [
-      // "core-js/fn/promise",
-      // "babel-polyfill"
-      "./src/main.js",
-    ],
+    main: ["./src/main.js"],
   },
   mode: "development",
   output: {
@@ -24,6 +20,7 @@ module.exports = {
       colors: true,
     },
   },
+  devtool: "source-map",
   module: {
     rules: [
       {
