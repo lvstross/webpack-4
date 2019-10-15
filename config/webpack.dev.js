@@ -34,19 +34,47 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [{ loader: "style-loader" }, { loader: "css-loader" }],
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" }
+        ],
       },
-            {
-              test: /\.(jpg|gif|png)$/,
-              use: [
-                {
-                  loader: "file-loader",
-                  options: {
-                    name: "images/[name].[ext]"
-                  }
-                }
-              ],
-            },
+      {
+        test: /\.sass$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" },
+          { loader: "sass-loader" },
+        ],
+      },
+      {
+        test: /\.styl$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" },
+          { loader: "postcss-loader" }, // postcss needs to come before prep loader
+          { loader: "stylus-loader" },
+        ],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" },
+          { loader: "less-loader" },
+        ],
+      },
+      {
+        test: /\.(jpg|gif|png)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "images/[name].[ext]"
+            }
+          }
+        ],
+      },
       {
         test: /\.html$/,
         use: [
