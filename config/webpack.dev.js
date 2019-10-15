@@ -4,7 +4,7 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    main: ["./src/main.js"],
+    main: ["react-hot-loader/patch", "./src/main.js"],
   },
   mode: "development",
   output: {
@@ -66,4 +66,9 @@ module.exports = {
       template: "./src/index.html",
     }),
   ],
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
+  },
 };
