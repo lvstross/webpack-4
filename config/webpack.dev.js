@@ -42,7 +42,7 @@ module.exports = {
                 {
                   loader: "file-loader",
                   options: {
-                    name: "images/[name].[ext]"
+                    name: "images/[name]-[hash:8].[ext]"
                   }
                 }
               ],
@@ -58,12 +58,34 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.pug$/,
+        use: [
+          {
+            loader: "pug-loader",
+          }
+        ],
+      },
+      {
+        test: /\.hbs$/,
+        use: [
+          {
+            loader: "handlebars-loader",
+            query: {
+              inlineRequires: "/images/",
+            },
+          }
+        ],
+      },
     ],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HTMLWebpackPlugin({
-      template: "./src/index.html",
+      // template: "./src/index.ejs",
+      // template: "./src/index.pug",
+      template: "./src/index.hbs",
+      title: 'My title',
     }),
   ],
 };
